@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react"
+import { useGlobalContext } from "../Context/store";
 
 type Params = {
     params: {
@@ -10,6 +11,7 @@ type Params = {
 export default function Galery({ params }: Params) {
 
     const [dogGallery, setDogGalery] = useState<string[]>();
+    const { favImages, setFavImages } = useGlobalContext();
 
     useEffect(() => {
         const fetchDogGalery = async () => {
@@ -30,6 +32,16 @@ export default function Galery({ params }: Params) {
         fetchDogGalery()
     }, [])
 
+    const handleFavourite = (dogImage: string) => {
+        if (favImages.includes(dogImage)) {
+            setFavImages(favImages.filter(image => image !== dogImage))
+        }
+        else {
+            setFavImages([...favImages, dogImage])
+        }
+
+    }
+
     return (
         <section style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
             {!dogGallery ? (
@@ -39,7 +51,8 @@ export default function Galery({ params }: Params) {
             ) : (
                 dogGallery.map((dogImage: string) => (
                     <div style={{ width: '350px', height: '500px', marginTop: '10px', position: 'relative', textAlign: 'center' }}>
-                        <img style={{ width: '350px', height: '500px' }} src={dogImage} />
+                        <img onClick={() => handleFavourite(dogImage)} style={{ width: '350px', height: '500px' }} src={dogImage} />
+                        {favImages.includes(dogImage) ? (<span style={{ position: 'absolute', top: '50%', right: '70%', color: 'blue', fontSize: '60px' }}>*</span>) : (<span style={{ position: 'absolute', top: '50%', right: '70%', color: 'red', fontSize: '60px' }}>*</span>)}
                     </div>
                 ))
             )}
