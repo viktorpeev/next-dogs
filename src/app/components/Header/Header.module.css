@@ -1,0 +1,24 @@
+.header {
+    display: flex;
+    position: relative;
+    
+}
+
+.label_container {
+    width: 100%;
+    text-align: center;
+}
+
+.favourites_container {
+    
+    position: absolute;
+    right: 0;
+    padding: 12px 10vw 12px 12px;
+
+    font-size: 12px;
+
+}
+
+.favourites {
+    border-bottom: 1px solid black;
+}

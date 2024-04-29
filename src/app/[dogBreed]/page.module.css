@@ -1,0 +1,20 @@
+.breed_galery {
+    max-width: var(--galery-width);
+  
+    margin-left: var(--gutter);
+    margin-right: var(--gutter);
+  }
+  
+  .breed_label {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 100px;
+  }
+  
+  .breed_singleDog {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, var(--card-size));
+    gap: var(--galery-item-gap);
+  
+    place-content: center;
+  }

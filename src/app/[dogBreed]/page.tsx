@@ -3,6 +3,9 @@
 import { useEffect, useState } from "react"
 import { useGlobalContext } from "../Context/store";
 
+import styles from './page.module.css'
+import { SingleDog } from "../components/SingleDog/SingleDog";
+
 type Params = {
     params: {
         dogBreed: string
@@ -32,7 +35,9 @@ export default function Galery({ params }: Params) {
         fetchDogGalery()
     }, [])
 
-    const handleFavourite = (dogImage: string) => {
+    const handleFavourite = (dogImage?: string) => {
+        if (!dogImage) return;
+
         if (favImages.includes(dogImage)) {
             setFavImages(favImages.filter(image => image !== dogImage))
         }
@@ -43,19 +48,28 @@ export default function Galery({ params }: Params) {
     }
 
     return (
-        <section style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+        <section className={styles.breed_galery}>
+
             {!dogGallery ? (
                 <h1 className="flex items-center justify-center text-white text-center px-5 text-3xl h-screen font-bold uppercase">
-                    Loading...
+                    Loading Galery...
                 </h1>
             ) : (
-                dogGallery.map((dogImage: string) => (
-                    <div style={{ width: '350px', height: '500px', marginTop: '10px', position: 'relative', textAlign: 'center' }}>
-                        <img onClick={() => handleFavourite(dogImage)} style={{ width: '350px', height: '500px' }} src={dogImage} />
-                        {favImages.includes(dogImage) ? (<span style={{ position: 'absolute', top: '50%', right: '70%', color: 'blue', fontSize: '60px' }}>*</span>) : (<span style={{ position: 'absolute', top: '50%', right: '70%', color: 'red', fontSize: '60px' }}>*</span>)}
+                <>
+                    <div className="text-center">
+                        <h1 className={styles.breed_label}>
+                            {params.dogBreed}
+                        </h1>
+                        <div className={styles.breed_singleDog}>
+                            {dogGallery.map((dogImage: string, index) => (
+                                <SingleDog key={index} dogImage={dogImage} onSelect={handleFavourite} />
+                            ))}
+                        </div>
                     </div>
-                ))
+                </>
             )}
+
         </section>
+
     )
 }

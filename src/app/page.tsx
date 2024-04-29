@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { SingleDog } from "./components/SingleDog/SingleDog"
+import styles from './page.module.css'
 
 
 export default function Home() {
@@ -78,33 +79,32 @@ export default function Home() {
     <>
       {!dogsCopy ? (
         <h1 className="flex items-center justify-center text-white text-center px-5 text-3xl h-screen font-bold uppercase">
-          Loading...
+          Loading Galery...
         </h1>
       ) : (
         <>
-          <section className="p-8 max-w-7xl mx-auto">
+          <section className={styles.homepage_galery}>
             <div className="text-center">
-              <h1 className="flex items-center justify-center text-center px-5 text-3xl font-bold lg:text-5xl text-white">
-                The Dog App
+              <h1 className={styles.homepage_label}>
+                Breeds
               </h1>
 
-              <form
-                className="max-w-xl mx-auto"
-                autoComplete="off"
+              <div
+                className={styles.search_container}
               >
                 <input
                   type="text"
                   name="search"
                   id="search"
-                  placeholder="Search for a dog / breed"
-                  className="py-2 px-4 rounded shadow w-full bg-slate-400 text-white placeholder-white"
+                  placeholder="Type to filter"
+                  className={styles.search}
                   value={text}
                   onChange={(e) => searchForDog(e.target.value)}
                 />
-              </form>
+              </div>
             </div>
 
-            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+            <div className={styles.homepage_singleDog}>
               {dogsCopy.map((dog, index) => (
                 <SingleDog key={index} dogImage={unionDogImage?.[dog]} dogBreed={dog} />
               ))}

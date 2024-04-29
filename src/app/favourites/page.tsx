@@ -1,20 +1,41 @@
 'use client'
 
 import { useGlobalContext } from "../Context/store";
+import { SingleDog } from "../components/SingleDog/SingleDog";
+import styles from './page.module.css';
 
 export default function Favourites() {
     const { favImages, setFavImages } = useGlobalContext();
 
-    const handleSelect = (dogImage: string) => {
+    const handleSelect = (dogImage?: string) => {
         setFavImages(favImages.filter(image => image !== dogImage))
     }
 
     return (
-        <>{favImages.map((dogImage: string) => (
-            <div style={{ width: '350px', height: '500px', marginTop: '10px', position: 'relative', textAlign: 'center' }}>
-                <img onClick={() => handleSelect(dogImage)} style={{ width: '350px', height: '500px' }} src={dogImage} />
-                <span style={{ position: 'absolute', top: '50%', right: '70%', color: 'blue', fontSize: '60px' }}>*</span>
-            </div>
-        ))}</>
+        <>
+
+            <section className={styles.favourite_galery}>
+
+                {!favImages ? (
+                    <h1 className="flex items-center justify-center text-white text-center px-5 text-3xl h-screen font-bold uppercase">
+                        Loading Galery...
+                    </h1>
+                ) : (
+                    <>
+                        <div className="text-center">
+                            <h1 className={styles.favourite_label}>
+                                Favourites
+                            </h1>
+                            <div className={styles.favourite_singleDog}>
+                                {favImages.map((dogImage: string, index) => (
+                                    <SingleDog key={index} dogImage={dogImage} onSelect={handleSelect} />
+                                ))}
+                            </div>
+                        </div>
+                    </>
+                )}
+
+            </section>
+        </>
     )
 }

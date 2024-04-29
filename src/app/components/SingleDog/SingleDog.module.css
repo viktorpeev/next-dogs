@@ -1,0 +1,37 @@
+.card_container {
+    width: var(--card-size);
+    height: var(--card-size);
+    position: relative;
+    text-align: center;
+}
+
+.card_container__img {
+    width: var(--card-size);
+    height: var(--card-size);
+    border-radius: 10%;
+}
+
+.card_container__label {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    margin: 10px;
+    padding: 5px;
+    border-radius: 10%;
+
+
+    background-color: gray;
+    color: white;
+}
+
+.card_container__star {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 10px;
+    padding: 5px;
+
+
+    font-size: var(--star-size);
+    height: var(--star-size);
+}

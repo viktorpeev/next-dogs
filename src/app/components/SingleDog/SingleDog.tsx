@@ -1,18 +1,33 @@
 import Link from "next/link"
+import styles from './SingleDog.module.css'
+import { useGlobalContext } from "@/app/Context/store";
 
 type Dog = {
     dogImage?: string;
     dogBreed?: string
+    onSelect?: (image?: string) => void;
 }
 
-export const SingleDog = ({ dogImage, dogBreed }: Dog) => {
+export const SingleDog = ({ dogImage, dogBreed, onSelect }: Dog) => {
+
+    const { favImages } = useGlobalContext();
 
     return (
-        <Link href={`/${dogBreed}`} >
-            <div style={{ width: '350px', height: '500px', marginTop: '10px', position: 'relative', textAlign: 'center' }}>
-                <img style={{ width: '350px', height: '500px' }} src={dogImage} />
-                <span style={{ position: 'absolute', top: '95%', right: '70%' }}>{dogBreed}</span>
-            </div>
-        </Link >
+
+        <>{dogBreed ? (
+            <Link href={`/${dogBreed}`} >
+                <div className={styles.card_container}>
+                    <img className={styles.card_container__img} src={dogImage} />
+                    <span className={styles.card_container__label}>{dogBreed}</span>
+                </div>
+            </Link >
+        )
+            : (
+                <div style={{cursor: 'pointer'}} onClick={() => onSelect?.(dogImage)} className={styles.card_container}>
+                    <img className={styles.card_container__img} src={dogImage} />
+                    <span style={dogImage && favImages.includes(dogImage) ? { color: 'gold' } : { color: 'white' }} className={styles.card_container__star}>&#8902;</span>
+                </div>
+            )}</>
+
     )
 }
