@@ -14,6 +14,7 @@ export default function Home() {
   const [unionDogImage, setUnionDogImage] = useState<{ [breed: string]: string | undefined }>()
 
   useEffect(() => {
+
     const fetchDogData = async () => {
       try {
         const res = await fetch("https://dog.ceo/api/breeds/list/all")
@@ -39,7 +40,6 @@ export default function Home() {
 
     fetchDogData()
   }, [])
-
 
   const createDogImageUnion = (imageArray: { [message: string]: string }[], breedArray: string[]) => {
     const result = Object.fromEntries(breedArray.map((k, i) => [k, imageArray?.[i].message]));
@@ -78,13 +78,13 @@ export default function Home() {
   return (
     <>
       {!dogsCopy ? (
-        <h1 className="flex items-center justify-center text-white text-center px-5 text-3xl h-screen font-bold uppercase">
+        <h1>
           Loading Galery...
         </h1>
       ) : (
         <>
           <section className={styles.homepage_galery}>
-            <div className="text-center">
+            <div>
               <h1 className={styles.homepage_label}>
                 Breeds
               </h1>

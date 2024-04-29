@@ -5,6 +5,7 @@ import { useGlobalContext } from "../Context/store";
 
 import styles from './page.module.css'
 import { SingleDog } from "../components/SingleDog/SingleDog";
+import { useRouter } from "next/navigation";
 
 type Params = {
     params: {
@@ -12,6 +13,8 @@ type Params = {
     }
 }
 export default function Galery({ params }: Params) {
+
+    const router = useRouter();
 
     const [dogGallery, setDogGalery] = useState<string[]>();
     const { favImages, setFavImages } = useGlobalContext();
@@ -49,17 +52,16 @@ export default function Galery({ params }: Params) {
 
     return (
         <section className={styles.breed_galery}>
-
             {!dogGallery ? (
-                <h1 className="flex items-center justify-center text-white text-center px-5 text-3xl h-screen font-bold uppercase">
+                <h1>
                     Loading Galery...
                 </h1>
             ) : (
                 <>
-                    <div className="text-center">
-                        <h1 className={styles.breed_label}>
-                            {params.dogBreed}
-                        </h1>
+                    <div style={{ position: 'relative' }}>
+                        <h1 className={styles.breed_label}>{params.dogBreed}</h1>
+
+                        <span className={styles.back} onClick={() => router.back()}>&#8592;</span>
                         <div className={styles.breed_singleDog}>
                             {dogGallery.map((dogImage: string, index) => (
                                 <SingleDog key={index} dogImage={dogImage} onSelect={handleFavourite} />

@@ -13,16 +13,15 @@ export default function Favourites() {
 
     return (
         <>
-
             <section className={styles.favourite_galery}>
 
                 {!favImages ? (
-                    <h1 className="flex items-center justify-center text-white text-center px-5 text-3xl h-screen font-bold uppercase">
+                    <h1>
                         Loading Galery...
                     </h1>
                 ) : (
                     <>
-                        <div className="text-center">
+                        <div>
                             <h1 className={styles.favourite_label}>
                                 Favourites
                             </h1>
